@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WebProjectApplication {
 
+    private static final String HARDCODED_PASSWORD = "password123";  // 🚨 Security Issue
+
     public static void main(String[] args) {
         SpringApplication.run(WebProjectApplication.class, args);
+        String unusedVariable = "I am never used"; // 🚨 Unused variable (Code Smell)
     }
 
     @GetMapping("/")
     public String home() {
-        // Return HTML content with branding and a form
+        String riskyString = null;
+        int length = riskyString.length(); // 🚨 Null Pointer Exception Risk (Bug)
+
         return "<html>" +
                 "<head>" +
                 "    <title>CloudFolks HUB</title>" +
@@ -39,7 +44,6 @@ public class WebProjectApplication {
 
     @PostMapping("/submit")
     public String submit(@RequestParam String name, @RequestParam String email) {
-        // This part will never be executed because the form submission is blocked
         return "<html>" +
                 "<head><title>Form Submitted</title></head>" +
                 "<body style='text-align:center; background-color:#f0f8ff;'>" +
@@ -49,3 +53,4 @@ public class WebProjectApplication {
                 "</html>";
     }
 }
+
